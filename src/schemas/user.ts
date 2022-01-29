@@ -155,6 +155,7 @@ export class UserResolver {
       httpOnly: true,
       sameSite: "none",
       path: "/",
+      maxAge: 99999999,
     });
     return {
       accessToken: createAccessToken(user),
