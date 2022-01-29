@@ -55,7 +55,7 @@ export class UserResolver {
   }
 
   @Query((_returns) => [User], { nullable: true })
-  @UseMiddleware([isAuth, isAdmin])
+  @UseMiddleware([isAuth])
   async allUsers() {
     return await ps.user.findMany({
       include: {
@@ -95,7 +95,9 @@ export class UserResolver {
       throw new Error(err?.meta?.target || err);
     }
   }
+
   @Mutation((_returns) => Boolean)
+  @UseMiddleware([isAuth, isAdmin])
   async addUser(
     @Arg("email") email: string,
     @Arg("name", { nullable: true }) name: string,
@@ -119,6 +121,7 @@ export class UserResolver {
   }
 
   @Mutation((_returns) => Boolean)
+  @UseMiddleware([isAuth, isAdmin])
   async updateUser(
     @Arg("id", (_type) => Int) id: number,
     @Arg("email") email: string,
@@ -155,6 +158,7 @@ export class UserResolver {
   }
 
   @Mutation((_returns) => Boolean)
+  @UseMiddleware([isAuth, isAdmin])
   async removeUser(@Arg("id", (_type) => Int) id: number) {
     try {
       await ps.user.delete({

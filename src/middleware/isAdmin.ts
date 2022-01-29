@@ -7,7 +7,7 @@ export const isAdmin: MiddlewareFn<ExpressContext> = async (
   next
 ) => {
   if (!context.payload) throw new Error("not logged in");
-  console.log(context.payload.UserId);
+  // console.log(context.payload.UserId);
   try {
     const user = await ps.user.findUnique({
       where: { id: context.payload.UserId },

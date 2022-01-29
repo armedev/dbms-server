@@ -7,12 +7,12 @@ export const isAuth: MiddlewareFn<ExpressContext> = ({ context }, next) => {
   if (!auth) throw new Error("not authenticated");
   try {
     const token = auth.split(" ")[1];
-    console.log("token:", token);
+    // console.log("token:", token);
     if (!token) throw new Error("not valid token");
     const payloadjwt = validateAccessToken(token);
     context.payload = payloadjwt as any;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     throw new Error("not valid token");
   }
   return next();
