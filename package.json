@@ -26,7 +26,8 @@
     "seed": "ts-node prisma/seed.ts",
     "dev": "nodemon --exec ts-node src/index.ts",
     "start": "ts-node src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "heroku-postbuild": "yarn prisma migrate dev && yarn build:production"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
