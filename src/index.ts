@@ -33,7 +33,6 @@ app.get("/", (_, res) => {
 
 app.post("/refresh-token", async (req, res) => {
   const cookie = req.cookies.gasMonkey;
-  console.log(cookie);
   if (!cookie) return res.send({ ok: false, accessToken: "" });
   let payload: any = null;
   try {
