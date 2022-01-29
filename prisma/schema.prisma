@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
+  name         String?
+  passwordHash String
+  admin        Boolean      @default(false)
+  createdAt    DateTime     @default(now())
+  collections  Collection[]
+  orders       Orders[]
+}
+
+model Collection {
+  id         Int      @id @default(autoincrement())
+  name       String
+  photos     String[]
+  primaryPic String?
+  price      Int
+  model      Int
+  owner      User?    @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  ownerId    Int?
+  brand      String?
+  color      String
+  cc         Int?
+  bhp        String?
+  torque     String?
+  orders     Orders[]
+  category   String
+  categories Category @relation(fields: [category], references: [name])
+  mods       Mods[]
+}
+
+model Orders {
+  offeredById   Int
+  offeredBy     User       @relation(fields: [offeredById], references: [id], onDelete: Cascade)
+  toCollectioId Int
+  toCollection  Collection @relation(fields: [toCollectioId], references: [id], onDelete: Cascade)
+  price         Int
+
+  @@id([offeredById, toCollectioId])
+}
+
+model Category {
+  name        String       @id
+  collections Collection[]
+}
+
+model Mods {
+  name        String       @id
+  collections Collection[]
+}
