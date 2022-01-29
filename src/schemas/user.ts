@@ -154,6 +154,7 @@ export class UserResolver {
     res.cookie("gasMonkey", createRefreshToken(user), {
       httpOnly: true,
       sameSite: "none",
+      secure: true,
       path: "/",
       maxAge: 99999999,
     });
