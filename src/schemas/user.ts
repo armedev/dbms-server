@@ -151,7 +151,11 @@ export class UserResolver {
     }
     const passwordValid = await compare(password, user.passwordHash);
     if (!passwordValid) throw new Error("password invalid");
-    res.cookie("gasMonkey", createRefreshToken(user), { httpOnly: true });
+    res.cookie("gasMonkey", createRefreshToken(user), {
+      httpOnly: true,
+      sameSite: "none",
+      path: "/",
+    });
     return {
       accessToken: createAccessToken(user),
     };
