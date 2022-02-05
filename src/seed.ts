@@ -37,22 +37,34 @@ async function main() {
   //     owner: { connect: { id: 32 } },
   //   },
   // });
-  //   await prisma.category.createMany({
-  //     data: [
-  //       {
-  //         name: "Sport",
-  //       },
-  //       {
-  //         name: "Electric",
-  //       },
-  //       {
-  //         name: "Hyper Sport",
-  //       },
-  //       {
-  //         name: "Economy",
-  //       },
-  //     ],
-  //   });
+  await prisma.category.createMany({
+    data: [
+      {
+        name: "Sport",
+      },
+      {
+        name: "Electric",
+      },
+      {
+        name: "Hyper Sport",
+      },
+      {
+        name: "Standard",
+      },
+    ],
+  });
+  await prisma.mods.createMany({
+    data: [
+      { name: "Exhaust" },
+      { name: "Turbo" },
+      { name: "Intake" },
+      { name: "Carbon Fibre Body" },
+      { name: "wide Body" },
+      { name: "Alloy Wheels" },
+      { name: "Head Port" },
+      { name: "Short Shifter" },
+    ],
+  });
   //   const mods = await prisma.mods.findMany({ where: {} });
   //   console.log(mods);
 
