@@ -31,12 +31,12 @@ async function main() {
   //     id: 1,
   //   },
   // });
-  await prisma.collection.update({
-    where: { id: 3 },
-    data: {
-      owner: { connect: { id: 32 } },
-    },
-  });
+  // await prisma.collection.update({
+  //   where: { id: 3 },
+  //   data: {
+  //     owner: { connect: { id: 32 } },
+  //   },
+  // });
   //   await prisma.category.createMany({
   //     data: [
   //       {
