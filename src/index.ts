@@ -10,6 +10,9 @@ import cookieParser from "cookie-parser";
 import { createAccessToken, validateRefreshToken } from "./auth";
 import ps from "./prisma-client";
 import { OrdersResolver } from "./schemas/orders";
+import { CollectionResolver } from "./schemas/collections";
+import { CategoryResolver } from "./schemas/category";
+import { ModsResolver } from "./schemas/mods";
 
 // import { ExpressContext } from "./interfaces/req-res";
 
@@ -24,7 +27,13 @@ app.use(
 app.use(cookieParser());
 
 const schema = buildSchemaSync({
-  resolvers: [UserResolver, OrdersResolver],
+  resolvers: [
+    UserResolver,
+    OrdersResolver,
+    CollectionResolver,
+    CategoryResolver,
+    ModsResolver,
+  ],
 });
 
 app.get("/", (_, res) => {

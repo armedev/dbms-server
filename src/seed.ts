@@ -23,12 +23,18 @@ async function main() {
   //     },
   //   });
   //   const users = await prisma.user.findMany({ take: 10 });
-  await prisma.user.update({
+  // await prisma.user.update({
+  //   data: {
+  //     admin: true,
+  //   },
+  //   where: {
+  //     id: 1,
+  //   },
+  // });
+  await prisma.collection.update({
+    where: { id: 3 },
     data: {
-      admin: true,
-    },
-    where: {
-      id: 1,
+      owner: { connect: { id: 32 } },
     },
   });
   //   await prisma.category.createMany({
