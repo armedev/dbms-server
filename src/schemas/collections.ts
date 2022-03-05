@@ -219,4 +219,24 @@ export class CollectionResolver {
       throw new Error(err?.meta?.target || err);
     }
   }
+
+  @Mutation(() => [Collection], { nullable: true })
+  @UseMiddleware([isAuth])
+  async searchCollections(@Arg("key", (_type) => String) key: string) {
+    const res = await ps.collection.findMany({
+      include: {
+        mods: true,
+        owner: { select: { email: true, id: true, name: true } },
+        orders: {
+          select: {
+            price: true,
+            offeredBy: { select: { name: true, email: true } },
+          },
+        },
+      },
+      take: 10,
+    });
+    key = key.toLowerCase();
+    return res.filter((r) => String(r.name).toLowerCase().includes(key));
+  }
 }

@@ -176,4 +176,22 @@ export class UserResolver {
       throw new Error("deletion failed");
     }
   }
+
+  @Mutation((_returns) => [User], { nullable: true })
+  @UseMiddleware([isAuth])
+  async searchUsers(@Arg("key", (_type) => String) key: string) {
+    const res = await ps.user.findMany({
+      include: {
+        orders: {
+          orderBy: { price: "desc" },
+          include: { toCollection: { select: { name: true, id: true } } },
+        },
+        collections: true,
+      },
+      take: 10,
+    });
+
+    key = key.toLowerCase();
+    return res.filter((r) => String(r.name).toLowerCase().includes(key));
+  }
 }
